@@ -31,14 +31,14 @@ body {
 /* NAV */
 nav {
   position: fixed; top: 0; width: 100%; z-index: 100;
-  padding: 1.25rem 4%;
+  padding: 0.8rem 4%;
   display: flex; justify-content: space-between; align-items: center;
   transition: all 0.4s ease; background: transparent;
 }
 nav.scrolled {
   background: rgba(26, 23, 20, 0.95);
   backdrop-filter: blur(12px);
-  padding: 0.8rem 4%;
+  padding: 0.4rem 4%;
   box-shadow: 0 2px 30px rgba(0,0,0,0.2);
 }
 .nav-logo { display: flex; flex-direction: column; }
@@ -84,13 +84,18 @@ nav.scrolled {
 .hero {
   height: 100vh; min-height: 700px; position: relative;
   display: flex; align-items: flex-end;
-  background: linear-gradient(170deg, rgba(26,23,20,0.3) 0%, rgba(26,23,20,0.75) 60%, rgba(26,23,20,0.95) 100%),
-    url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1600&q=80') center/cover no-repeat;
+  background: linear-gradient(170deg, rgba(26,23,20,0.15) 0%, rgba(26,23,20,0.6) 40%, rgba(26,23,20,0.92) 100%),
+    url('images/all/IMG_0726.jpg') center/cover no-repeat;
   overflow: hidden;
 }
 .hero::before {
   content: ''; position: absolute; inset: 0;
   background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(to top, var(--warm-black) 0%, transparent 100%);
   pointer-events: none;
 }
 .hero-content { position: relative; z-index: 2; padding: 0 6% 8vh; max-width: 900px; }
@@ -254,7 +259,7 @@ section { padding: 7rem 6%; }
 /* CTA */
 .cta-section {
   background: linear-gradient(160deg, rgba(26,23,20,0.92) 0%, rgba(139,94,60,0.85) 100%),
-    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80') center/cover no-repeat;
+    url('images/all/IMG_0556.jpg') center/cover no-repeat;
   text-align: center; padding: 7rem 6%;
 }
 .cta-section .section-title { color: #fff; max-width: 650px; margin: 0 auto 1rem; }
@@ -278,8 +283,10 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
 
 /* ANIMATIONS */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scrollPulse { 0%,100% { opacity: 0.3; transform: scaleY(0.7); } 50% { opacity: 1; transform: scaleY(1); } }
 .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+.nav-logo-svg { transition: opacity 0.3s; }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
@@ -306,8 +313,28 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-logo">
-    <span class="nav-logo-main">Northeast Fence</span>
-    <span class="nav-logo-sub">Est. 1961 &bull; North Richland Hills, TX</span>
+    <svg viewBox="0 0 360 105" width="220" height="64" xmlns="http://www.w3.org/2000/svg" class="nav-logo-svg">
+      <defs>
+        <linearGradient id="postGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E8A04A"/>
+          <stop offset="50%" stop-color="#D4883A"/>
+          <stop offset="100%" stop-color="#A0652A"/>
+        </linearGradient>
+      </defs>
+      <!-- Fence post icon -->
+      <rect x="8" y="16" width="10" height="72" rx="1" fill="url(#postGrad)"/>
+      <rect x="4" y="10" width="18" height="8" rx="1.5" fill="#E8A04A"/>
+      <rect x="18" y="32" width="22" height="3.5" rx="1" fill="#C4956A" opacity="0.5"/>
+      <rect x="18" y="62" width="22" height="3.5" rx="1" fill="#C4956A" opacity="0.5"/>
+      <rect x="22" y="16" width="4.5" height="70" rx="0.5" fill="#C4956A" opacity="0.35"/>
+      <rect x="30" y="16" width="4.5" height="70" rx="0.5" fill="#C4956A" opacity="0.25"/>
+      <rect x="38" y="16" width="4.5" height="70" rx="0.5" fill="#C4956A" opacity="0.15"/>
+      <!-- Text -->
+      <text x="52" y="52" font-family="Georgia,'Times New Roman',serif" font-size="38" font-weight="bold" fill="#FFFFFF" letter-spacing="2.5">NORTHEAST</text>
+      <text x="54" y="72" font-family="'Segoe UI',Helvetica,Arial,sans-serif" font-size="13.5" fill="#C4956A" letter-spacing="5" font-weight="300">FENCE COMPANY</text>
+      <line x1="54" y1="79" x2="280" y2="79" stroke="#C4956A" stroke-width="0.5" opacity="0.3"/>
+      <text x="54" y="93" font-family="'Segoe UI',Helvetica,Arial,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.45)" letter-spacing="2">EST. 1961 &#x2022; NORTH RICHLAND HILLS, TX</text>
+    </svg>
   </div>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
@@ -325,6 +352,9 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
 
 <!-- HERO -->
 <section class="hero">
+  <!-- Decorative fence line across top -->
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 0%,#D4883A 20%,#C4956A 50%,#D4883A 80%,transparent 100%);z-index:3;opacity:0.6;"></div>
+  
   <div class="hero-content">
     <div class="hero-badge">
       <div class="hero-badge-dot"></div>
@@ -341,6 +371,12 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
     <div class="hero-stat"><div class="hero-stat-num">65+</div><div class="hero-stat-label">Years of Experience</div></div>
     <div class="hero-stat"><div class="hero-stat-num">DFW</div><div class="hero-stat-label">Metroplex Coverage</div></div>
     <div class="hero-stat"><div class="hero-stat-num">3rd</div><div class="hero-stat-label">Generation Family</div></div>
+  </div>
+  
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:0.5rem;animation:fadeUp 0.8s ease 0.8s both;">
+    <span style="font-size:0.7rem;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;">Scroll to Explore</span>
+    <div style="width:1px;height:30px;background:linear-gradient(to bottom,rgba(196,149,106,0.6),transparent);animation:scrollPulse 2s ease infinite;"></div>
   </div>
 </section>
 
@@ -362,7 +398,7 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
   </div>
   <div class="services-grid">
     <div class="service-card animate-on-scroll">
-      <div class="service-card-img"><img src="https://images.unsplash.com/photo-1622372738946-62e02505feb3?w=600&q=80" alt="Wood Fence"></div>
+      <div class="service-card-img"><img src="images/all/wood01A.jpg" alt="Wood Fence"></div>
       <div class="service-card-body">
         <h3>Wood Fences</h3>
         <p>Sturdy, long-lasting privacy fencing built with galvanized steel posts, Maximizer concrete foundations, and your choice of spruce or western red cedar pickets.</p>
@@ -375,7 +411,7 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
       </div>
     </div>
     <div class="service-card animate-on-scroll">
-      <div class="service-card-img"><img src="https://images.unsplash.com/photo-1595429035839-c99c298ffdde?w=600&q=80" alt="Wrought Iron Fence"></div>
+      <div class="service-card-img"><img src="images/all/iron04A.jpg" alt="Wrought Iron Fence"></div>
       <div class="service-card-body">
         <h3>Wrought Iron</h3>
         <p>Maintenance-free powder-coated galvanized steel that will never rust or need refinishing. Available with cedar privacy inserts and custom gate options.</p>
@@ -388,7 +424,7 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
       </div>
     </div>
     <div class="service-card animate-on-scroll">
-      <div class="service-card-img"><img src="https://images.unsplash.com/photo-1584437030899-c4af2e209eab?w=600&q=80" alt="Chain Link Fence"></div>
+      <div class="service-card-img"><img src="images/all/chainlink01A.jpg" alt="Chain Link Fence"></div>
       <div class="service-card-body">
         <h3>Chain Link</h3>
         <p>Cost-effective solutions for residential dog runs and commercial applications. Available with vinyl coating, barb arms, and cantilever gate options.</p>
@@ -417,7 +453,7 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
       </div>
     </div>
     <div class="why-visual animate-on-scroll">
-      <div class="why-visual-main"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Quality fence work"></div>
+      <div class="why-visual-main"><img src="images/all/38890014_wood_01.jpg" alt="Quality fence work"></div>
       <div class="why-visual-float"><div class="why-visual-float-num">65+</div><div class="why-visual-float-label">Years Serving DFW</div></div>
     </div>
   </div>
@@ -435,13 +471,47 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
     </div>
   </div>
   <div class="gallery-grid" id="galleryGrid">
-    <div class="gallery-item featured animate-on-scroll" data-type="wood"><img src="https://images.unsplash.com/photo-1622372738946-62e02505feb3?w=800&q=80" alt="Wood fence"><div class="gallery-item-label">8' Western Red Cedar with Top Cap</div></div>
-    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="https://images.unsplash.com/photo-1595429035839-c99c298ffdde?w=400&q=80" alt="Iron fence"><div class="gallery-item-label">Residential Wrought Iron</div></div>
-    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="https://images.unsplash.com/photo-1584437030899-c4af2e209eab?w=400&q=80" alt="Cedar fence"><div class="gallery-item-label">Board on Board Cedar</div></div>
-    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" alt="Iron gate"><div class="gallery-item-label">Wrought Iron Gate</div></div>
-    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80" alt="Wood fence"><div class="gallery-item-label">Cedar Privacy Fence</div></div>
-    <div class="gallery-item animate-on-scroll" data-type="chain"><img src="https://images.unsplash.com/photo-1584437030899-c4af2e209eab?w=400&q=80" alt="Chain link"><div class="gallery-item-label">Commercial Chain Link</div></div>
-    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="https://images.unsplash.com/photo-1622372738946-62e02505feb3?w=400&q=80" alt="Custom gate"><div class="gallery-item-label">Custom Cedar Gate</div></div>
+    <div class="gallery-item featured animate-on-scroll" data-type="wood"><img src="images/all/wood01A.jpg" alt="Wood fence"><div class="gallery-item-label">8' Fence with 6" Western Red Cedar Pickets</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood02A.jpg" alt="Wood fence"><div class="gallery-item-label">6" Western Red Cedar Pickets</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood03A.jpg" alt="Wood fence"><div class="gallery-item-label">Western Red Cedar with Boxed Posts</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood04A.jpg" alt="Wood fence"><div class="gallery-item-label">Cedar Pickets & Iron Posts</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood05A.jpg" alt="Wood fence"><div class="gallery-item-label">Western Red Cedar Privacy Fence</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood06A.jpg" alt="Wood gate"><div class="gallery-item-label">10' Single Drive Cedar Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood07A.jpg" alt="Gate hinge"><div class="gallery-item-label">Gate Hinge Detail</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood08A.jpg" alt="Wood gate"><div class="gallery-item-label">10' Single Drive Cedar Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood09A.jpg" alt="Wood gate"><div class="gallery-item-label">20' Double Drive Cedar Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood10A.jpg" alt="Wood gate"><div class="gallery-item-label">20' Double Drive Cedar Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood11A.jpg" alt="Wood gate"><div class="gallery-item-label">20' Double Drive Cedar Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood12A.jpg" alt="Wood fence"><div class="gallery-item-label">8' Board on Board with Top Cap</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood13A.jpg" alt="Wood fence"><div class="gallery-item-label">8' Board on Board with Face Board</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood14A.jpg" alt="Wood fence"><div class="gallery-item-label">Board on Board with Boxed Posts</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood15A.jpg" alt="Wood fence"><div class="gallery-item-label">Board on Board with Boxed Posts</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood16A.jpg" alt="Wood gate"><div class="gallery-item-label">Cedar Gate with Metal Frame</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood17A.jpg" alt="Split rail"><div class="gallery-item-label">Western Red Cedar Split Rail</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood18A.jpg" alt="Wood fence"><div class="gallery-item-label">Cedar with Stair Step & Top Cap</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood19A.jpg" alt="Slide gate"><div class="gallery-item-label">28' Cedar Slide Gate with Opener</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood20A.jpg" alt="Slide gate"><div class="gallery-item-label">28' Cedar Slide Gate with Opener</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="wood"><img src="images/all/wood21A.jpg" alt="Trolley"><div class="gallery-item-label">Sliding Gate Truss Trolley</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron01A.jpg" alt="Iron gate"><div class="gallery-item-label">Residential Wrought Iron Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron02A.jpg" alt="Iron gate"><div class="gallery-item-label">Iron Gate with Wood Inserts</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron03A.jpg" alt="Iron fence"><div class="gallery-item-label">Residential Iron with Wood Inserts</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron04A.jpg" alt="Iron fence"><div class="gallery-item-label">Residential Iron with Wood Inserts</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron05A.jpg" alt="Iron gate"><div class="gallery-item-label">Commercial 911 Center Iron Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron06A.jpg" alt="Iron gate"><div class="gallery-item-label">Commercial Iron Gate with Keyed Lock</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron07A.jpg" alt="Iron gate"><div class="gallery-item-label">Iron Gate with Panic Bar</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron08A.jpg" alt="Iron gate"><div class="gallery-item-label">Iron Gate with Wood Inserts & Panic Bar</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron09A.jpg" alt="Iron gate"><div class="gallery-item-label">10' Wrought Iron Driveway Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron10A.jpg" alt="Iron fence"><div class="gallery-item-label">3' Wrought Iron Fence</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron11A.jpg" alt="Iron gate"><div class="gallery-item-label">Wrought Iron Gate with Wood Inserts</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron12A.jpg" alt="Spring"><div class="gallery-item-label">Self-Closing Spring</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron13A.jpg" alt="Iron fence"><div class="gallery-item-label">Iron Fence with 24" Doggie Bars</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron14A.jpg" alt="Lock"><div class="gallery-item-label">Lever Lock Set</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/iron15A.jpg" alt="Latch"><div class="gallery-item-label">Child Proof Safety Latch</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="iron"><img src="images/all/wood22A.jpg" alt="Iron gate"><div class="gallery-item-label">16' Iron Gate with Cedar & Opener</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="chain"><img src="images/all/chainlink01A.jpg" alt="Chain link"><div class="gallery-item-label">6' Chain Link with Barbed Wire</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="chain"><img src="images/all/chainlink02A.jpg" alt="Chain link gate"><div class="gallery-item-label">20' Cantilever Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="chain"><img src="images/all/chainlink03A.jpg" alt="Chain link gate"><div class="gallery-item-label">28' Cantilever Gate</div></div>
+    <div class="gallery-item animate-on-scroll" data-type="chain"><img src="images/all/chainlink04A.jpg" alt="Vinyl chain link"><div class="gallery-item-label">Vinyl Coated Chain Link</div></div>
   </div>
 </section>
 
@@ -537,7 +607,7 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="nav-logo"><span class="nav-logo-main">Northeast Fence</span><span class="nav-logo-sub">Est. 1961 &bull; North Richland Hills, TX</span></div>
+      <div class="nav-logo"><svg viewBox="0 0 360 105" width="200" height="58" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E8A04A"/><stop offset="50%" stop-color="#D4883A"/><stop offset="100%" stop-color="#A0652A"/></linearGradient></defs><rect x="8" y="16" width="10" height="72" rx="1" fill="url(#fpG)"/><rect x="4" y="10" width="18" height="8" rx="1.5" fill="#E8A04A"/><rect x="18" y="32" width="22" height="3.5" rx="1" fill="#C4956A" opacity="0.5"/><rect x="18" y="62" width="22" height="3.5" rx="1" fill="#C4956A" opacity="0.5"/><rect x="22" y="16" width="4.5" height="70" rx="0.5" fill="#C4956A" opacity="0.35"/><rect x="30" y="16" width="4.5" height="70" rx="0.5" fill="#C4956A" opacity="0.25"/><rect x="38" y="16" width="4.5" height="70" rx="0.5" fill="#C4956A" opacity="0.15"/><text x="52" y="52" font-family="Georgia,'Times New Roman',serif" font-size="38" font-weight="bold" fill="#FFFFFF" letter-spacing="2.5">NORTHEAST</text><text x="54" y="72" font-family="'Segoe UI',Helvetica,sans-serif" font-size="13.5" fill="#C4956A" letter-spacing="5" font-weight="300">FENCE COMPANY</text><line x1="54" y1="79" x2="280" y2="79" stroke="#C4956A" stroke-width="0.5" opacity="0.3"/><text x="54" y="93" font-family="'Segoe UI',Helvetica,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.45)" letter-spacing="2">EST. 1961 &#x2022; NORTH RICHLAND HILLS, TX</text></svg></div>
       <p>Family owned and operated since 1961, proudly serving the Dallas/Fort Worth metroplex with quality fencing solutions.</p>
     </div>
     <div class="footer-col"><h4>Services</h4><ul><li><a href="#services">Wood Fences</a></li><li><a href="#services">Wrought Iron</a></li><li><a href="#services">Chain Link</a></li><li><a href="#services">Custom Gates</a></li><li><a href="#services">Commercial</a></li></ul></div>
