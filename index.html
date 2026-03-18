@@ -325,6 +325,10 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
     order: -1;
   }
   #visualizer { padding: 3rem 3% !important; }
+  #contact .section-title { text-align: center; }
+  #contact > div { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  #contact > div > div:first-child p { text-align: center; }
+  #contact > div > div:first-child .section-label { justify-content: center; }
 }
 @media (max-width: 640px) {
   section { padding: 4rem 5%; }
@@ -628,16 +632,79 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="contact">
-  <div class="section-label" style="color:var(--cedar-glow);justify-content:center;">Get Started</div>
-  <h2 class="section-title">Ready for Your New Fence?</h2>
-  <p>Schedule your free estimate today. We'll come to you, discuss your options honestly, and give you a fair bid — no pressure, no upselling.</p>
-  <div class="cta-actions">
-    <a href="mailto:info@northeastfencetx.com" class="btn-primary">Request a Free Bid &rarr;</a>
-    <a href="tel:8172816261" class="btn-secondary">Call Us Today</a>
+<!-- CTA / CONTACT FORM -->
+<section class="cta-section" id="contact" style="text-align:left;padding:5rem 6%;">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+    <!-- Left: Info -->
+    <div>
+      <div class="section-label" style="color:var(--cedar-glow);">Get Started</div>
+      <h2 class="section-title" style="text-align:left;">Ready for Your New Fence?</h2>
+      <p style="text-align:left;max-width:none;margin:0 0 2.5rem;">Schedule your free estimate today. We'll come to you, discuss your options honestly, and give you a fair bid — no pressure, no upselling.</p>
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:rgba(196,149,106,0.15);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;">&#x1F4DE;</div>
+          <div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;font-weight:500;">Call Us</div>
+            <a href="tel:8172816261" style="color:#C4956A;font-family:'DM Serif Display',serif;font-size:1.4rem;text-decoration:none;">817-281-6261</a>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:rgba(196,149,106,0.15);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;">&#x2709;</div>
+          <div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;font-weight:500;">Email Us</div>
+            <a href="mailto:info@northeastfencetx.com" style="color:#C4956A;font-size:1rem;text-decoration:none;">info@northeastfencetx.com</a>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:rgba(196,149,106,0.15);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;">&#x1F4CD;</div>
+          <div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;font-weight:500;">Service Area</div>
+            <span style="color:rgba(255,255,255,0.8);font-size:1rem;">North Richland Hills &amp; DFW Metroplex</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right: Form -->
+    <div id="contactForm" style="background:rgba(255,255,255,0.05);border:1px solid rgba(196,149,106,0.2);border-radius:12px;padding:2.5rem;backdrop-filter:blur(10px);">
+      <h3 style="color:#fff;font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:0.5rem;">Request a Free Estimate</h3>
+      <p style="color:rgba(255,255,255,0.45);font-size:0.85rem;margin-bottom:1.5rem;font-weight:300;text-align:left;max-width:none;">Fill out the form below and we'll get back to you within 24 hours.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+        <div style="grid-column:1;">
+          <label style="display:block;font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">Name *</label>
+          <input type="text" id="cfName" placeholder="Your name" style="width:100%;padding:0.7rem 1rem;background:rgba(255,255,255,0.07);border:1px solid rgba(196,149,106,0.2);border-radius:6px;color:#fff;font-family:Outfit,sans-serif;font-size:0.9rem;outline:none;transition:border 0.3s;" onfocus="this.style.borderColor='#C4956A'" onblur="this.style.borderColor='rgba(196,149,106,0.2)'">
+        </div>
+        <div style="grid-column:2;">
+          <label style="display:block;font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">Phone</label>
+          <input type="tel" id="cfPhone" placeholder="Your phone" style="width:100%;padding:0.7rem 1rem;background:rgba(255,255,255,0.07);border:1px solid rgba(196,149,106,0.2);border-radius:6px;color:#fff;font-family:Outfit,sans-serif;font-size:0.9rem;outline:none;transition:border 0.3s;" onfocus="this.style.borderColor='#C4956A'" onblur="this.style.borderColor='rgba(196,149,106,0.2)'">
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">Email *</label>
+          <input type="email" id="cfEmail" placeholder="Your email" style="width:100%;padding:0.7rem 1rem;background:rgba(255,255,255,0.07);border:1px solid rgba(196,149,106,0.2);border-radius:6px;color:#fff;font-family:Outfit,sans-serif;font-size:0.9rem;outline:none;transition:border 0.3s;" onfocus="this.style.borderColor='#C4956A'" onblur="this.style.borderColor='rgba(196,149,106,0.2)'">
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">Fence Type</label>
+          <select id="cfService" style="width:100%;padding:0.7rem 1rem;background:rgba(255,255,255,0.07);border:1px solid rgba(196,149,106,0.2);border-radius:6px;color:#fff;font-family:Outfit,sans-serif;font-size:0.9rem;outline:none;transition:border 0.3s;appearance:none;-webkit-appearance:none;" onfocus="this.style.borderColor='#C4956A'" onblur="this.style.borderColor='rgba(196,149,106,0.2)'">
+            <option value="" style="background:#1a1714;">Select a service...</option>
+            <option value="Wood Fence" style="background:#1a1714;">Wood Fence</option>
+            <option value="Wrought Iron" style="background:#1a1714;">Wrought Iron Fence</option>
+            <option value="Chain Link" style="background:#1a1714;">Chain Link Fence</option>
+            <option value="Iron + Cedar" style="background:#1a1714;">Wrought Iron with Cedar Inserts</option>
+            <option value="Custom Gate" style="background:#1a1714;">Custom Gate</option>
+            <option value="Commercial" style="background:#1a1714;">Commercial Project</option>
+            <option value="Other" style="background:#1a1714;">Other / Not Sure</option>
+          </select>
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">Message *</label>
+          <textarea id="cfMessage" rows="4" placeholder="Tell us about your project — size of yard, type of fence, any special requirements..." style="width:100%;padding:0.7rem 1rem;background:rgba(255,255,255,0.07);border:1px solid rgba(196,149,106,0.2);border-radius:6px;color:#fff;font-family:Outfit,sans-serif;font-size:0.9rem;outline:none;resize:vertical;transition:border 0.3s;" onfocus="this.style.borderColor='#C4956A'" onblur="this.style.borderColor='rgba(196,149,106,0.2)'"></textarea>
+        </div>
+        <div style="grid-column:1 / -1;">
+          <button id="cfSubmit" onclick="submitContactForm()" style="width:100%;padding:0.9rem;background:linear-gradient(135deg,#D4883A,#A0713C);border:none;border-radius:6px;color:#fff;font-weight:700;font-size:0.95rem;cursor:pointer;font-family:Outfit,sans-serif;letter-spacing:0.03em;transition:all 0.3s;">Request Free Estimate &rarr;</button>
+        </div>
+        <div id="cfStatus" style="grid-column:1 / -1;display:none;padding:0.75rem 1rem;border-radius:6px;font-size:0.88rem;font-weight:500;text-align:center;"></div>
+      </div>
+    </div>
   </div>
-  <a href="tel:8172816261" class="cta-phone">817-281-6261</a>
 </section>
 
 <!-- FOOTER -->
@@ -702,13 +769,48 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 // ==========================================
 (function() {
   var STYLES = {
-    cedar6:   { name: "6' Western Red Cedar", color: "#A0713C", dark: "#7A5528", light: "#C4956A", type: "wood", price: "$$" },
-    cedar8:   { name: "8' Board on Board Cedar", color: "#8B5E3C", dark: "#6B4427", light: "#B8845A", type: "wood", price: "$$$" },
-    spruce:   { name: "6' Spruce Privacy", color: "#C4A97D", dark: "#A68B5B", light: "#DBBF94", type: "wood", price: "$" },
-    iron:     { name: "Wrought Iron", color: "#2C2C2C", dark: "#1a1a1a", light: "#444", type: "iron", price: "$$$" },
-    ironWood: { name: "Iron + Cedar Inserts", color: "#2C2C2C", dark: "#1a1a1a", light: "#444", type: "iron", price: "$$$$", insert: "#A0713C" },
-    chain:    { name: "Chain Link", color: "#888", dark: "#666", light: "#aaa", type: "chain", price: "$" }
+    cedar6:   { name: "6' Western Red Cedar", type: "wood", price: "$$", img: "images/all/wood01A.jpg", color: "#A0713C", dark: "#7A5528", light: "#C4956A" },
+    cedar8:   { name: "8' Board on Board Cedar", type: "wood", price: "$$$", img: "images/all/wood12A.jpg", color: "#8B5E3C", dark: "#6B4427", light: "#B8845A" },
+    spruce:   { name: "6' Spruce Privacy", type: "wood", price: "$", img: "images/all/wood05A.jpg", color: "#C4A97D", dark: "#A68B5B", light: "#DBBF94" },
+    iron:     { name: "Wrought Iron", type: "iron", price: "$$$", img: "images/all/iron10A.jpg", color: "#2C2C2C", dark: "#1a1a1a", light: "#444" },
+    ironWood: { name: "Iron + Cedar Inserts", type: "iron", price: "$$$$", img: "images/all/iron04A.jpg", color: "#2C2C2C", dark: "#1a1a1a", light: "#444" },
+    chain:    { name: "Chain Link", type: "chain", price: "$", img: "images/all/chainlink04A.jpg", color: "#888", dark: "#666", light: "#aaa" }
   };
+
+  // roundRect polyfill
+  if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+      r = Math.min(r, w/2, h/2);
+      this.moveTo(x+r, y);
+      this.lineTo(x+w-r, y);
+      this.arcTo(x+w, y, x+w, y+r, r);
+      this.lineTo(x+w, y+h-r);
+      this.arcTo(x+w, y+h, x+w-r, y+h, r);
+      this.lineTo(x+r, y+h);
+      this.arcTo(x, y+h, x, y+h-r, r);
+      this.lineTo(x, y+r);
+      this.arcTo(x, y, x+r, y, r);
+    };
+  }
+
+  // Preload fence images
+  var fenceImages = {};
+  var imagesLoaded = 0;
+  var totalImages = Object.keys(STYLES).length;
+  Object.keys(STYLES).forEach(function(key) {
+    var img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function() {
+      fenceImages[key] = img;
+      imagesLoaded++;
+      if (imagesLoaded === totalImages && vizImg) drawViz();
+    };
+    img.onerror = function() {
+      fenceImages[key] = null;
+      imagesLoaded++;
+    };
+    img.src = STYLES[key].img;
+  });
 
   var selected = "cedar6";
   var opacity = 0.85;
@@ -725,8 +827,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
       var s = STYLES[key];
       var btn = document.createElement('button');
       btn.setAttribute('data-style', key);
-      var bgGrad = s.type === 'wood' ? 'linear-gradient(180deg,'+s.light+','+s.color+','+s.dark+')' :
-                   s.type === 'iron' ? 'linear-gradient(180deg,#555,#333,#222)' : 'linear-gradient(180deg,#bbb,#999,#777)';
+      var bgGrad = 'url('+s.img+') center/cover';
       btn.innerHTML = '<div style="width:32px;height:32px;border-radius:6px;flex-shrink:0;background:'+bgGrad+';border:2px solid '+(selected===key?'#C4956A':'transparent')+';"></div>'+
         '<div style="flex:1;min-width:0;text-align:left;"><div style="font-size:0.82rem;font-weight:600;">'+s.name+'</div></div>'+
         '<div style="font-size:0.75rem;color:#C4956A;font-weight:600;flex-shrink:0;">'+s.price+'</div>';
@@ -795,123 +896,105 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     link.click();
   });
 
-  // Drawing functions
-  function drawWoodFence(x, y, w, h, style) {
-    ctx.globalAlpha = opacity;
-    var s = STYLES[style];
-    var pw = Math.max(8, w / 18), gap = style === 'cedar8' ? -pw * 0.3 : 2;
-    var postW = pw * 1.4, num = Math.ceil(w / (pw + gap));
-    // Shadow
-    ctx.fillStyle = 'rgba(0,0,0,0.15)'; ctx.fillRect(x+4,y+4,w,h);
-    // Posts
-    [x, x+w-postW].forEach(function(px) {
-      var g = ctx.createLinearGradient(px,y,px+postW,y);
-      g.addColorStop(0, s.dark); g.addColorStop(0.5, s.color); g.addColorStop(1, s.dark);
-      ctx.fillStyle = g; ctx.fillRect(px, y-h*0.03, postW, h*1.06);
-      ctx.fillStyle = s.light; ctx.fillRect(px-2, y-h*0.05, postW+4, h*0.03);
-    });
-    // Rails
-    [y+h*0.08, y+h*0.85].forEach(function(ry) {
-      var g = ctx.createLinearGradient(x,ry,x,ry+h*0.04);
-      g.addColorStop(0, s.light); g.addColorStop(1, s.dark);
-      ctx.fillStyle = g; ctx.fillRect(x,ry,w,h*0.04);
-    });
-    // Top cap for cedar8
-    if (style === 'cedar8') {
-      ctx.fillStyle = s.dark; ctx.fillRect(x-3,y-2,w+6,h*0.035);
-      ctx.fillStyle = s.light; ctx.fillRect(x-5,y-h*0.015-2,w+10,h*0.02);
-    }
-    // Pickets
-    for (var i = 0; i < num; i++) {
-      var px = x + postW + i * (pw + gap);
-      if (px + pw > x + w - postW) break;
-      var colors = [s.light, s.color, s.dark];
-      var g = ctx.createLinearGradient(px,y,px+pw,y);
-      var c = colors[i % 3];
-      g.addColorStop(0, c); g.addColorStop(0.5, s.color); g.addColorStop(1, s.dark);
-      ctx.fillStyle = g;
-      var top = style === 'cedar8' ? y+h*0.03 : y;
-      ctx.fillRect(px, top, pw, h-(top-y));
-      ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 0.5;
-      for (var g2 = 0; g2 < 4; g2++) {
-        var gy = top + (h/5)*g2 + Math.random()*8;
-        ctx.beginPath(); ctx.moveTo(px+1,gy); ctx.lineTo(px+pw-1,gy+(Math.random()-0.5)*3); ctx.stroke();
-      }
-    }
-    ctx.fillStyle = 'rgba(80,60,30,0.5)'; ctx.fillRect(x,y+h-h*0.06,w,h*0.06);
-    ctx.globalAlpha = 1;
-  }
+  // Draw fence image overlay with edge blending
+  function drawFenceOverlay(x, y, w, h) {
+    var fImg = fenceImages[selected];
+    if (!fImg) return;
 
-  function drawIronFence(x, y, w, h, style) {
-    ctx.globalAlpha = opacity;
-    var barW = 4, gap = Math.max(14, w/22), postW = 12, hasWood = style === 'ironWood';
-    ctx.fillStyle = 'rgba(0,0,0,0.1)'; ctx.fillRect(x+3,y+3,w,h);
-    [x, x+w/3, x+2*w/3, x+w-postW].forEach(function(px) {
-      var g = ctx.createLinearGradient(px,y,px+postW,y);
-      g.addColorStop(0,'#3a3a3a'); g.addColorStop(0.5,'#555'); g.addColorStop(1,'#2a2a2a');
-      ctx.fillStyle = g; ctx.fillRect(px,y-5,postW,h+10);
-      ctx.fillStyle = '#555'; ctx.beginPath(); ctx.arc(px+postW/2,y-8,7,0,Math.PI*2); ctx.fill();
-    });
-    [y+h*0.06, y+h*0.92].forEach(function(ry) {
-      var g = ctx.createLinearGradient(x,ry,x,ry+6);
-      g.addColorStop(0,'#555'); g.addColorStop(1,'#333');
-      ctx.fillStyle = g; ctx.fillRect(x,ry,w,6);
-    });
-    ctx.fillStyle = '#3a3a3a'; ctx.fillRect(x,y+h*0.48,w,4);
-    var num = Math.ceil(w / gap);
-    for (var i = 1; i < num; i++) {
-      var bx = x + i * gap;
-      if (bx > x+w-postW) break;
-      if (hasWood && i % 2 === 0) {
-        var iw = gap * 0.8, ix = bx - iw/2;
-        var g = ctx.createLinearGradient(ix,y,ix+iw,y);
-        g.addColorStop(0,'#C4956A'); g.addColorStop(0.5,'#A0713C'); g.addColorStop(1,'#8B5E3C');
-        ctx.fillStyle = g; ctx.fillRect(ix,y+h*0.08,iw,h*0.84);
-      }
-      var g2 = ctx.createLinearGradient(bx,y,bx+barW,y);
-      g2.addColorStop(0,'#4a4a4a'); g2.addColorStop(0.5,'#5a5a5a'); g2.addColorStop(1,'#3a3a3a');
-      ctx.fillStyle = g2; ctx.fillRect(bx,y+h*0.06,barW,h*0.87);
-      ctx.fillStyle = '#4a4a4a'; ctx.beginPath();
-      ctx.moveTo(bx+barW/2,y); ctx.lineTo(bx-2+barW/2,y+h*0.06); ctx.lineTo(bx+6+barW/2,y+h*0.06);
-      ctx.closePath(); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  }
+    ctx.save();
 
-  function drawChainFence(x, y, w, h) {
+    // Drop shadow beneath fence
+    ctx.fillStyle = 'rgba(0,0,0,0.18)';
+    ctx.filter = 'blur(6px)';
+    ctx.fillRect(x + 4, y + h - 8, w, 16);
+    ctx.filter = 'none';
+
+    // Draw fence image fitted into the rectangle
     ctx.globalAlpha = opacity;
-    var postW = 10;
-    ctx.fillStyle = 'rgba(0,0,0,0.08)'; ctx.fillRect(x+2,y+2,w,h);
-    ctx.fillStyle = 'rgba(180,180,180,'+(opacity*0.25)+')'; ctx.fillRect(x,y,w,h);
-    var dw = 18, dh = 22;
-    ctx.strokeStyle = 'rgba(160,160,160,'+(opacity*0.7)+')'; ctx.lineWidth = 1.5;
-    for (var r = 0; r < Math.ceil(h/dh)+1; r++) {
-      for (var c = 0; c < Math.ceil(w/dw)+1; c++) {
-        var cx = x+c*dw+(r%2?dw/2:0), cy = y+r*dh;
-        if (cx > x+w || cy > y+h) continue;
-        ctx.beginPath(); ctx.moveTo(cx,cy-dh/2); ctx.lineTo(cx+dw/2,cy); ctx.lineTo(cx,cy+dh/2); ctx.lineTo(cx-dw/2,cy); ctx.closePath(); ctx.stroke();
-      }
+
+    // Calculate crop to maintain aspect ratio and tile/fill
+    var imgAspect = fImg.width / fImg.height;
+    var rectAspect = w / h;
+
+    // We want to show a representative section of the fence photo
+    // Crop from the center of the image
+    var sx, sy, sw, sh;
+    if (imgAspect > rectAspect) {
+      // Image is wider — crop sides
+      sh = fImg.height;
+      sw = sh * rectAspect;
+      sx = (fImg.width - sw) / 2;
+      sy = 0;
+    } else {
+      // Image is taller — crop top/bottom
+      sw = fImg.width;
+      sh = sw / rectAspect;
+      sx = 0;
+      sy = (fImg.height - sh) * 0.3; // bias toward top where the fence is
     }
-    [x, x+w/2, x+w-postW].forEach(function(px) {
-      var g = ctx.createLinearGradient(px,y,px+postW,y);
-      g.addColorStop(0,'#999'); g.addColorStop(0.5,'#bbb'); g.addColorStop(1,'#888');
-      ctx.fillStyle = g; ctx.fillRect(px,y-10,postW,h+15);
-      ctx.fillStyle = '#aaa'; ctx.beginPath(); ctx.arc(px+postW/2,y-12,6,0,Math.PI*2); ctx.fill();
-    });
-    var g = ctx.createLinearGradient(x,y,x,y+8);
-    g.addColorStop(0,'#bbb'); g.addColorStop(1,'#999');
-    ctx.fillStyle = g; ctx.fillRect(x,y-2,w,8);
+
+    // Draw main fence image
+    ctx.drawImage(fImg, sx, sy, sw, sh, x, y, w, h);
+
+    // Edge blending — soft fade on left and right edges
+    var edgeW = Math.min(w * 0.08, 30);
+    var gradL = ctx.createLinearGradient(x, y, x + edgeW, y);
+    gradL.addColorStop(0, 'rgba(0,0,0,0.4)');
+    gradL.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = gradL;
+    ctx.fillRect(x, y, edgeW, h);
+
+    var gradR = ctx.createLinearGradient(x + w - edgeW, y, x + w, y);
+    gradR.addColorStop(0, 'rgba(0,0,0,0)');
+    gradR.addColorStop(1, 'rgba(0,0,0,0.4)');
+    ctx.fillStyle = gradR;
+    ctx.fillRect(x + w - edgeW, y, edgeW, h);
+
+    // Subtle bottom ground blend
+    var gradB = ctx.createLinearGradient(x, y + h - h * 0.12, x, y + h);
+    gradB.addColorStop(0, 'rgba(0,0,0,0)');
+    gradB.addColorStop(1, 'rgba(0,0,0,0.3)');
+    ctx.fillStyle = gradB;
+    ctx.fillRect(x, y + h - h * 0.12, w, h * 0.12);
+
+    // Subtle top edge
+    var gradT = ctx.createLinearGradient(x, y, x, y + h * 0.05);
+    gradT.addColorStop(0, 'rgba(0,0,0,0.15)');
+    gradT.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = gradT;
+    ctx.fillRect(x, y, w, h * 0.05);
+
     ctx.globalAlpha = 1;
+    ctx.restore();
   }
 
   function drawViz() {
     if (!vizImg || !ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(vizImg, 0, 0, canvas.width, canvas.height);
-    var s = STYLES[selected];
-    if (s.type === 'wood') drawWoodFence(rect.x, rect.y, rect.w, rect.h, selected);
-    else if (s.type === 'iron') drawIronFence(rect.x, rect.y, rect.w, rect.h, selected);
-    else drawChainFence(rect.x, rect.y, rect.w, rect.h);
+
+    // Draw fence overlay
+    drawFenceOverlay(rect.x, rect.y, rect.w, rect.h);
+
+    // Style label on the fence
+    ctx.save();
+    ctx.globalAlpha = 0.85;
+    var labelW = Math.min(rect.w * 0.7, 220);
+    var labelH = 24;
+    var labelX = rect.x + (rect.w - labelW) / 2;
+    var labelY = rect.y + rect.h + 8;
+    ctx.fillStyle = 'rgba(26,23,20,0.8)';
+    ctx.beginPath();
+    ctx.roundRect(labelX, labelY, labelW, labelH, 4);
+    ctx.fill();
+    ctx.fillStyle = '#C4956A';
+    ctx.font = '500 11px Outfit, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(STYLES[selected].name, labelX + labelW / 2, labelY + labelH / 2);
+    ctx.globalAlpha = 1;
+    ctx.restore();
+
     // Handles
     ctx.fillStyle = 'rgba(212,136,58,0.9)'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
     [[rect.x,rect.y],[rect.x+rect.w,rect.y],[rect.x,rect.y+rect.h],[rect.x+rect.w,rect.y+rect.h]].forEach(function(h) {
@@ -975,6 +1058,72 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     canvas.addEventListener('touchend', onUp);
   }
 })();
+
+// Contact form submission
+function submitContactForm() {
+  var name = document.getElementById('cfName').value.trim();
+  var email = document.getElementById('cfEmail').value.trim();
+  var phone = document.getElementById('cfPhone').value.trim();
+  var service = document.getElementById('cfService').value;
+  var message = document.getElementById('cfMessage').value.trim();
+  var btn = document.getElementById('cfSubmit');
+  var status = document.getElementById('cfStatus');
+
+  // Validate
+  if (!name || !email || !message) {
+    status.style.display = 'block';
+    status.style.background = 'rgba(220,60,60,0.15)';
+    status.style.color = '#ff6b6b';
+    status.style.border = '1px solid rgba(220,60,60,0.3)';
+    status.textContent = 'Please fill in your name, email, and message.';
+    return;
+  }
+
+  // Disable button
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  btn.style.opacity = '0.6';
+
+  fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: name, email: email, phone: phone, service: service, message: message })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    status.style.display = 'block';
+    if (data.success) {
+      status.style.background = 'rgba(76,175,80,0.15)';
+      status.style.color = '#81c784';
+      status.style.border = '1px solid rgba(76,175,80,0.3)';
+      status.textContent = 'Thank you! We\'ll be in touch within 24 hours.';
+      // Reset form
+      document.getElementById('cfName').value = '';
+      document.getElementById('cfEmail').value = '';
+      document.getElementById('cfPhone').value = '';
+      document.getElementById('cfService').value = '';
+      document.getElementById('cfMessage').value = '';
+    } else {
+      status.style.background = 'rgba(220,60,60,0.15)';
+      status.style.color = '#ff6b6b';
+      status.style.border = '1px solid rgba(220,60,60,0.3)';
+      status.textContent = data.error || 'Something went wrong. Please call us at 817-281-6261.';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Request Free Estimate \u2192';
+    btn.style.opacity = '1';
+  })
+  .catch(function() {
+    status.style.display = 'block';
+    status.style.background = 'rgba(220,60,60,0.15)';
+    status.style.color = '#ff6b6b';
+    status.style.border = '1px solid rgba(220,60,60,0.3)';
+    status.textContent = 'Connection error. Please call us at 817-281-6261.';
+    btn.disabled = false;
+    btn.textContent = 'Request Free Estimate \u2192';
+    btn.style.opacity = '1';
+  });
+}
 </script>
 </body>
 </html>
