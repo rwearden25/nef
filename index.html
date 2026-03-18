@@ -281,6 +281,20 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
 .footer-contact-item strong { color: rgba(255,255,255,0.7); font-weight: 500; }
 .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: 300; }
 
+/* VISUALIZER LAYOUT */
+.viz-layout {
+  display: flex; gap: 1.5rem;
+}
+.viz-canvas-wrap {
+  flex: 1; min-width: 0; position: relative;
+}
+.viz-controls {
+  flex: 0 0 280px; min-width: 260px;
+}
+.viz-style-buttons {
+  display: flex; flex-direction: column; gap: 0.4rem;
+}
+
 /* ANIMATIONS */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes scrollPulse { 0%,100% { opacity: 0.3; transform: scaleY(0.7); } 50% { opacity: 1; transform: scaleY(1); } }
@@ -298,6 +312,19 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
   .hero-stats { display: none; }
   .nav-links { display: none; }
   .nav-contact { display: none; }
+  .viz-layout {
+    flex-direction: column;
+  }
+  .viz-controls {
+    flex: 1 1 auto; min-width: 0;
+  }
+  .viz-style-buttons {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem;
+  }
+  .viz-canvas-wrap {
+    order: -1;
+  }
+  #visualizer { padding: 3rem 3% !important; }
 }
 @media (max-width: 640px) {
   section { padding: 4rem 5%; }
@@ -305,6 +332,14 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
   .gallery-item.featured { grid-column: span 2; }
   .hero-actions { flex-direction: column; align-items: flex-start; }
   .footer-grid { grid-template-columns: 1fr; }
+  .viz-style-buttons {
+    grid-template-columns: 1fr; 
+    max-height: 200px; overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #visualizer { padding: 2rem 2% !important; }
+  #vizTip { font-size: 0.68rem !important; padding: 0.4rem 0.7rem !important; }
+  .viz-upload-label { padding: 2.5rem 1.5rem !important; }
 }
 </style>
 </head>
@@ -551,7 +586,7 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
   <div id="vizApp" style="max-width:1100px;margin:0 auto;position:relative;z-index:2;">
     <!-- Upload State -->
     <div id="vizUpload" style="text-align:center;">
-      <label style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 4rem;border:2px dashed rgba(196,149,106,0.4);border-radius:16px;cursor:pointer;background:rgba(196,149,106,0.06);transition:all 0.3s;max-width:500px;margin:0 auto;">
+      <label class="viz-upload-label" style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 4rem;border:2px dashed rgba(196,149,106,0.4);border-radius:16px;cursor:pointer;background:rgba(196,149,106,0.06);transition:all 0.3s;max-width:500px;width:100%;margin:0 auto;">
         <input type="file" id="vizFileInput" accept="image/*" capture="environment" style="display:none;">
         <div style="font-size:3rem;margin-bottom:0.75rem;">&#x1F4F8;</div>
         <div style="font-weight:600;font-size:1.1rem;color:#fff;margin-bottom:0.25rem;">Upload a Photo of Your Yard</div>
@@ -565,26 +600,28 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
     </div>
     <!-- Editor State -->
     <div id="vizEditor" style="display:none;">
-      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-        <div style="flex:0 0 280px;min-width:260px;">
-          <label style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1rem;border:1px solid rgba(196,149,106,0.3);border-radius:8px;cursor:pointer;background:rgba(196,149,106,0.05);margin-bottom:1.25rem;font-size:0.82rem;color:#C4956A;font-weight:500;">
+      <div class="viz-layout">
+        <!-- Canvas (shows first on mobile) -->
+        <div class="viz-canvas-wrap">
+          <div id="vizTip" style="position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(26,23,20,0.92);border:1px solid rgba(196,149,106,0.4);border-radius:8px;padding:0.5rem 1rem;font-size:0.78rem;color:#C4956A;font-weight:500;white-space:nowrap;">Drag to move fence &#x2022; Corner handles to resize</div>
+          <canvas id="vizCanvas" style="border-radius:10px;cursor:grab;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(196,149,106,0.15);"></canvas>
+          <div style="position:absolute;bottom:12px;right:12px;background:rgba(26,23,20,0.85);border:1px solid rgba(196,149,106,0.3);border-radius:8px;padding:0.4rem 0.75rem;font-size:0.75rem;color:rgba(255,255,255,0.7);">Showing: <strong style="color:#C4956A;" id="vizCurrentStyle">6' Western Red Cedar</strong></div>
+        </div>
+        <!-- Controls -->
+        <div class="viz-controls">
+          <label style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1rem;border:1px solid rgba(196,149,106,0.3);border-radius:8px;cursor:pointer;background:rgba(196,149,106,0.05);margin-bottom:1rem;font-size:0.82rem;color:#C4956A;font-weight:500;">
             <input type="file" id="vizFileInput2" accept="image/*" capture="environment" style="display:none;">&#x1F4F8; Change Photo
           </label>
           <h3 style="font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C4956A;margin-bottom:0.6rem;">Select Fence Style</h3>
-          <div id="vizStyleButtons" style="display:flex;flex-direction:column;gap:0.4rem;"></div>
+          <div id="vizStyleButtons" class="viz-style-buttons"></div>
           <div style="margin-top:1rem;padding:0.85rem;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid rgba(255,255,255,0.06);">
             <label style="font-size:0.78rem;color:rgba(255,255,255,0.5);display:block;margin-bottom:0.3rem;">Opacity: <span id="vizOpacityVal">85</span>%</label>
             <input type="range" id="vizOpacity" min="20" max="100" value="85" style="width:100%;accent-color:#D4883A;">
           </div>
-          <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;">
-            <button id="vizDownload" style="padding:0.75rem;background:linear-gradient(135deg,#D4883A,#A0713C);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:Outfit,sans-serif;">&#x1F4E5; Save Image</button>
-            <a href="tel:8172816261" style="padding:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(196,149,106,0.3);border-radius:8px;color:#C4956A;font-weight:700;font-size:0.88rem;text-align:center;text-decoration:none;">&#x1F4DE; Call for Free Estimate</a>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+            <button id="vizDownload" style="flex:1;padding:0.75rem;background:linear-gradient(135deg,#D4883A,#A0713C);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:Outfit,sans-serif;">&#x1F4E5; Save</button>
+            <a href="tel:8172816261" style="flex:1;padding:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(196,149,106,0.3);border-radius:8px;color:#C4956A;font-weight:700;font-size:0.88rem;text-align:center;text-decoration:none;">&#x1F4DE; Call Us</a>
           </div>
-        </div>
-        <div style="flex:1;min-width:0;position:relative;">
-          <div id="vizTip" style="position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(26,23,20,0.92);border:1px solid rgba(196,149,106,0.4);border-radius:8px;padding:0.5rem 1rem;font-size:0.78rem;color:#C4956A;font-weight:500;white-space:nowrap;">Drag to move fence &#x2022; Corner handles to resize</div>
-          <canvas id="vizCanvas" style="border-radius:10px;cursor:grab;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(196,149,106,0.15);"></canvas>
-          <div style="position:absolute;bottom:12px;right:12px;background:rgba(26,23,20,0.85);border:1px solid rgba(196,149,106,0.3);border-radius:8px;padding:0.4rem 0.75rem;font-size:0.75rem;color:rgba(255,255,255,0.7);">Showing: <strong style="color:#C4956A;" id="vizCurrentStyle">6' Western Red Cedar</strong></div>
         </div>
       </div>
     </div>
@@ -724,10 +761,12 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
       var img = new Image();
       img.onload = function() {
         vizImg = img;
-        var maxW = Math.min(750, window.innerWidth - 360);
+        var isMobile = window.innerWidth <= 1024;
+        var maxW = isMobile ? Math.min(window.innerWidth - 20, 900) : Math.min(750, window.innerWidth - 360);
         var ratio = img.height / img.width;
+        var maxH = isMobile ? window.innerHeight * 0.55 : 550;
         canvas.width = maxW;
-        canvas.height = Math.min(maxW * ratio, 550);
+        canvas.height = Math.min(maxW * ratio, maxH);
         rect = { x: canvas.width * 0.1, y: canvas.height * 0.35, w: canvas.width * 0.5, h: canvas.height * 0.35 };
         document.getElementById('vizUpload').style.display = 'none';
         document.getElementById('vizEditor').style.display = 'block';
