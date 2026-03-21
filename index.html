@@ -498,6 +498,55 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
   </div>
 </section>
 
+<!-- FENCE VISUALIZER -->
+<section id="visualizer" style="background:var(--warm-black);padding:5rem 6%;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-50%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(196,149,106,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="text-align:center;max-width:650px;margin:0 auto 3rem;position:relative;z-index:2;">
+    <div class="section-label" style="color:var(--cedar-glow);justify-content:center;">Try It Yourself</div>
+    <h2 class="section-title" style="color:#fff;">See Your New Fence Before It's Built</h2>
+    <p style="color:rgba(255,255,255,0.55);font-size:1.05rem;line-height:1.7;font-weight:300;margin:0 auto;">Upload a photo of your yard and preview different fence styles overlaid right on your space — like trying on a fence before you buy.</p>
+  </div>
+  <div id="vizApp" style="max-width:1100px;margin:0 auto;position:relative;z-index:2;">
+    <div id="vizUpload" style="text-align:center;">
+      <label class="viz-upload-label" style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 4rem;border:2px dashed rgba(196,149,106,0.4);border-radius:16px;cursor:pointer;background:rgba(196,149,106,0.06);transition:all 0.3s;max-width:500px;width:100%;margin:0 auto;">
+        <input type="file" id="vizFileInput" accept="image/*" capture="environment" style="display:none;">
+        <div style="font-size:3rem;margin-bottom:0.75rem;">&#x1F4F8;</div>
+        <div style="font-weight:600;font-size:1.1rem;color:#fff;margin-bottom:0.25rem;">Upload a Photo of Your Yard</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);">Take a photo or choose from your gallery</div>
+      </label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;max-width:500px;margin:2rem auto 0;">
+        <div style="padding:1.25rem 0.75rem;background:rgba(196,149,106,0.06);border-radius:10px;border:1px solid rgba(196,149,106,0.12);"><div style="font-size:1.5rem;margin-bottom:0.5rem;">&#x1F4F8;</div><div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.4;">Snap a photo of your yard</div></div>
+        <div style="padding:1.25rem 0.75rem;background:rgba(196,149,106,0.06);border-radius:10px;border:1px solid rgba(196,149,106,0.12);"><div style="font-size:1.5rem;margin-bottom:0.5rem;">&#x1FAB5;</div><div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.4;">Choose a fence style</div></div>
+        <div style="padding:1.25rem 0.75rem;background:rgba(196,149,106,0.06);border-radius:10px;border:1px solid rgba(196,149,106,0.12);"><div style="font-size:1.5rem;margin-bottom:0.5rem;">&#x2728;</div><div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.4;">See it in your space</div></div>
+      </div>
+    </div>
+    <div id="vizEditor" style="display:none;">
+      <div class="viz-layout">
+        <div class="viz-canvas-wrap">
+          <div id="vizTip" style="position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(26,23,20,0.92);border:1px solid rgba(196,149,106,0.4);border-radius:8px;padding:0.5rem 1rem;font-size:0.78rem;color:#C4956A;font-weight:500;white-space:nowrap;">Drag to move fence &#x2022; Corner handles to resize</div>
+          <canvas id="vizCanvas" style="border-radius:10px;cursor:grab;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(196,149,106,0.15);"></canvas>
+          <div style="position:absolute;bottom:12px;right:12px;background:rgba(26,23,20,0.85);border:1px solid rgba(196,149,106,0.3);border-radius:8px;padding:0.4rem 0.75rem;font-size:0.75rem;color:rgba(255,255,255,0.7);">Showing: <strong style="color:#C4956A;" id="vizCurrentStyle">6' Western Red Cedar</strong></div>
+        </div>
+        <div class="viz-controls">
+          <label style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1rem;border:1px solid rgba(196,149,106,0.3);border-radius:8px;cursor:pointer;background:rgba(196,149,106,0.05);margin-bottom:1rem;font-size:0.82rem;color:#C4956A;font-weight:500;">
+            <input type="file" id="vizFileInput2" accept="image/*" capture="environment" style="display:none;">&#x1F4F8; Change Photo
+          </label>
+          <h3 style="font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C4956A;margin-bottom:0.6rem;">Select Fence Style</h3>
+          <div id="vizStyleButtons" class="viz-style-buttons"></div>
+          <div style="margin-top:1rem;padding:0.85rem;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid rgba(255,255,255,0.06);">
+            <label style="font-size:0.78rem;color:rgba(255,255,255,0.5);display:block;margin-bottom:0.3rem;">Opacity: <span id="vizOpacityVal">85</span>%</label>
+            <input type="range" id="vizOpacity" min="20" max="100" value="85" style="width:100%;accent-color:#D4883A;">
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+            <button id="vizDownload" style="flex:1;padding:0.75rem;background:linear-gradient(135deg,#D4883A,#A0713C);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:Outfit,sans-serif;">&#x1F4E5; Save</button>
+            <a href="tel:8172816261" style="flex:1;padding:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(196,149,106,0.3);border-radius:8px;color:#C4956A;font-weight:700;font-size:0.88rem;text-align:center;text-decoration:none;">&#x1F4DE; Call Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section class="gallery" id="gallery">
   <div class="gallery-header">
@@ -575,59 +624,6 @@ footer { background: var(--warm-black); color: rgba(255,255,255,0.5); padding: 4
       <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
       <blockquote>"They didn't over-promise, but they definitely over-delivered! We chose Northeast Fence because they were so honest about their costs and timelines."</blockquote>
       <div class="testimonial-author"><div class="testimonial-avatar">C</div><div><div class="testimonial-name">Courtney Porter</div><div class="testimonial-role">Residential Customer</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- FENCE VISUALIZER -->
-<section id="visualizer" style="background:var(--warm-black);padding:5rem 6%;position:relative;overflow:hidden;">
-  <div style="position:absolute;top:-50%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(196,149,106,0.06) 0%,transparent 70%);pointer-events:none;"></div>
-  <div style="text-align:center;max-width:650px;margin:0 auto 3rem;position:relative;z-index:2;">
-    <div class="section-label" style="color:var(--cedar-glow);justify-content:center;">Try It Yourself</div>
-    <h2 class="section-title" style="color:#fff;">See Your New Fence Before It's Built</h2>
-    <p style="color:rgba(255,255,255,0.55);font-size:1.05rem;line-height:1.7;font-weight:300;margin:0 auto;">Upload a photo of your yard and preview different fence styles overlaid right on your space — like trying on a fence before you buy.</p>
-  </div>
-  <div id="vizApp" style="max-width:1100px;margin:0 auto;position:relative;z-index:2;">
-    <!-- Upload State -->
-    <div id="vizUpload" style="text-align:center;">
-      <label class="viz-upload-label" style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 4rem;border:2px dashed rgba(196,149,106,0.4);border-radius:16px;cursor:pointer;background:rgba(196,149,106,0.06);transition:all 0.3s;max-width:500px;width:100%;margin:0 auto;">
-        <input type="file" id="vizFileInput" accept="image/*" capture="environment" style="display:none;">
-        <div style="font-size:3rem;margin-bottom:0.75rem;">&#x1F4F8;</div>
-        <div style="font-weight:600;font-size:1.1rem;color:#fff;margin-bottom:0.25rem;">Upload a Photo of Your Yard</div>
-        <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);">Take a photo or choose from your gallery</div>
-      </label>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;max-width:500px;margin:2rem auto 0;">
-        <div style="padding:1.25rem 0.75rem;background:rgba(196,149,106,0.06);border-radius:10px;border:1px solid rgba(196,149,106,0.12);"><div style="font-size:1.5rem;margin-bottom:0.5rem;">&#x1F4F8;</div><div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.4;">Snap a photo of your yard</div></div>
-        <div style="padding:1.25rem 0.75rem;background:rgba(196,149,106,0.06);border-radius:10px;border:1px solid rgba(196,149,106,0.12);"><div style="font-size:1.5rem;margin-bottom:0.5rem;">&#x1FAB5;</div><div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.4;">Choose a fence style</div></div>
-        <div style="padding:1.25rem 0.75rem;background:rgba(196,149,106,0.06);border-radius:10px;border:1px solid rgba(196,149,106,0.12);"><div style="font-size:1.5rem;margin-bottom:0.5rem;">&#x2728;</div><div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.4;">See it in your space</div></div>
-      </div>
-    </div>
-    <!-- Editor State -->
-    <div id="vizEditor" style="display:none;">
-      <div class="viz-layout">
-        <!-- Canvas (shows first on mobile) -->
-        <div class="viz-canvas-wrap">
-          <div id="vizTip" style="position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(26,23,20,0.92);border:1px solid rgba(196,149,106,0.4);border-radius:8px;padding:0.5rem 1rem;font-size:0.78rem;color:#C4956A;font-weight:500;white-space:nowrap;">Drag to move fence &#x2022; Corner handles to resize</div>
-          <canvas id="vizCanvas" style="border-radius:10px;cursor:grab;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(196,149,106,0.15);"></canvas>
-          <div style="position:absolute;bottom:12px;right:12px;background:rgba(26,23,20,0.85);border:1px solid rgba(196,149,106,0.3);border-radius:8px;padding:0.4rem 0.75rem;font-size:0.75rem;color:rgba(255,255,255,0.7);">Showing: <strong style="color:#C4956A;" id="vizCurrentStyle">6' Western Red Cedar</strong></div>
-        </div>
-        <!-- Controls -->
-        <div class="viz-controls">
-          <label style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1rem;border:1px solid rgba(196,149,106,0.3);border-radius:8px;cursor:pointer;background:rgba(196,149,106,0.05);margin-bottom:1rem;font-size:0.82rem;color:#C4956A;font-weight:500;">
-            <input type="file" id="vizFileInput2" accept="image/*" capture="environment" style="display:none;">&#x1F4F8; Change Photo
-          </label>
-          <h3 style="font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C4956A;margin-bottom:0.6rem;">Select Fence Style</h3>
-          <div id="vizStyleButtons" class="viz-style-buttons"></div>
-          <div style="margin-top:1rem;padding:0.85rem;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid rgba(255,255,255,0.06);">
-            <label style="font-size:0.78rem;color:rgba(255,255,255,0.5);display:block;margin-bottom:0.3rem;">Opacity: <span id="vizOpacityVal">85</span>%</label>
-            <input type="range" id="vizOpacity" min="20" max="100" value="85" style="width:100%;accent-color:#D4883A;">
-          </div>
-          <div style="margin-top:1rem;display:flex;gap:0.5rem;">
-            <button id="vizDownload" style="flex:1;padding:0.75rem;background:linear-gradient(135deg,#D4883A,#A0713C);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:Outfit,sans-serif;">&#x1F4E5; Save</button>
-            <a href="tel:8172816261" style="flex:1;padding:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(196,149,106,0.3);border-radius:8px;color:#C4956A;font-weight:700;font-size:0.88rem;text-align:center;text-decoration:none;">&#x1F4DE; Call Us</a>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -769,54 +765,13 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 // ==========================================
 (function() {
   var STYLES = {
-    cedar6:   { name: "6' Western Red Cedar", type: "wood", price: "$$", img: "images/all/wood01A.jpg", color: "#A0713C", dark: "#7A5528", light: "#C4956A",
-      crop: { x: 0.15, y: 0.05, w: 0.55, h: 0.85 } },
-    cedar8:   { name: "8' Board on Board Cedar", type: "wood", price: "$$$", img: "images/all/wood12A.jpg", color: "#8B5E3C", dark: "#6B4427", light: "#B8845A",
-      crop: { x: 0.1, y: 0.02, w: 0.6, h: 0.88 } },
-    spruce:   { name: "6' Spruce Privacy", type: "wood", price: "$", img: "images/all/wood05A.jpg", color: "#C4A97D", dark: "#A68B5B", light: "#DBBF94",
-      crop: { x: 0.15, y: 0.05, w: 0.55, h: 0.85 } },
-    iron:     { name: "Wrought Iron", type: "iron", price: "$$$", img: "images/all/iron10A.jpg", color: "#2C2C2C", dark: "#1a1a1a", light: "#444",
-      crop: { x: 0.05, y: 0.1, w: 0.7, h: 0.75 } },
-    ironWood: { name: "Iron + Cedar Inserts", type: "iron", price: "$$$$", img: "images/all/iron04A.jpg", color: "#2C2C2C", dark: "#1a1a1a", light: "#444",
-      crop: { x: 0.1, y: 0.08, w: 0.6, h: 0.78 } },
-    chain:    { name: "Chain Link", type: "chain", price: "$", img: "images/all/chainlink04A.jpg", color: "#888", dark: "#666", light: "#aaa",
-      crop: { x: 0.05, y: 0.1, w: 0.7, h: 0.75 } }
+    cedar6:   { name: "6' Western Red Cedar", color: "#A0713C", dark: "#7A5528", light: "#C4956A", type: "wood", price: "$$" },
+    cedar8:   { name: "8' Board on Board Cedar", color: "#8B5E3C", dark: "#6B4427", light: "#B8845A", type: "wood", price: "$$$" },
+    spruce:   { name: "6' Spruce Privacy", color: "#C4A97D", dark: "#A68B5B", light: "#DBBF94", type: "wood", price: "$" },
+    iron:     { name: "Wrought Iron", color: "#2C2C2C", dark: "#1a1a1a", light: "#444", type: "iron", price: "$$$" },
+    ironWood: { name: "Iron + Cedar Inserts", color: "#2C2C2C", dark: "#1a1a1a", light: "#444", type: "iron", price: "$$$$" },
+    chain:    { name: "Chain Link", color: "#888", dark: "#666", light: "#aaa", type: "chain", price: "$" }
   };
-
-  // roundRect polyfill
-  if (!CanvasRenderingContext2D.prototype.roundRect) {
-    CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-      r = Math.min(r, w/2, h/2);
-      this.moveTo(x+r, y);
-      this.lineTo(x+w-r, y);
-      this.arcTo(x+w, y, x+w, y+r, r);
-      this.lineTo(x+w, y+h-r);
-      this.arcTo(x+w, y+h, x+w-r, y+h, r);
-      this.lineTo(x+r, y+h);
-      this.arcTo(x, y+h, x, y+h-r, r);
-      this.lineTo(x, y+r);
-      this.arcTo(x, y, x+r, y, r);
-    };
-  }
-
-  // Preload fence images
-  var fenceImages = {};
-  var imagesLoaded = 0;
-  var totalImages = Object.keys(STYLES).length;
-  Object.keys(STYLES).forEach(function(key) {
-    var img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = function() {
-      fenceImages[key] = img;
-      imagesLoaded++;
-      if (imagesLoaded === totalImages && vizImg) drawViz();
-    };
-    img.onerror = function() {
-      fenceImages[key] = null;
-      imagesLoaded++;
-    };
-    img.src = STYLES[key].img;
-  });
 
   var selected = "cedar6";
   var opacity = 0.85;
@@ -833,7 +788,8 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
       var s = STYLES[key];
       var btn = document.createElement('button');
       btn.setAttribute('data-style', key);
-      var bgGrad = 'url('+s.img+') '+ Math.round((s.crop.x + s.crop.w/2)*100) +'% '+ Math.round((s.crop.y + s.crop.h/2)*100) +'%/'+Math.round(100/s.crop.w)+'% auto';
+      var bgGrad = s.type === 'wood' ? 'linear-gradient(180deg,'+s.light+','+s.color+','+s.dark+')' :
+                   s.type === 'iron' ? 'linear-gradient(180deg,#555,#333,#222)' : 'linear-gradient(180deg,#bbb,#999,#777)';
       btn.innerHTML = '<div style="width:32px;height:32px;border-radius:6px;flex-shrink:0;background:'+bgGrad+';border:2px solid '+(selected===key?'#C4956A':'transparent')+';"></div>'+
         '<div style="flex:1;min-width:0;text-align:left;"><div style="font-size:0.82rem;font-weight:600;">'+s.name+'</div></div>'+
         '<div style="font-size:0.75rem;color:#C4956A;font-weight:600;flex-shrink:0;">'+s.price+'</div>';
@@ -902,126 +858,118 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     link.click();
   });
 
-  // Draw fence image overlay — crops to just the fence, tiles to fill
-  function drawFenceOverlay(x, y, w, h) {
-    var fImg = fenceImages[selected];
-    if (!fImg) return;
-    var s = STYLES[selected];
-    var crop = s.crop;
-
-    ctx.save();
-
-    // Clip to fence rectangle
-    ctx.beginPath();
-    ctx.rect(x, y, w, h);
-    ctx.clip();
-
-    // Drop shadow beneath fence
-    ctx.fillStyle = 'rgba(0,0,0,0.18)';
-    ctx.filter = 'blur(6px)';
-    ctx.fillRect(x + 4, y + h - 8, w, 16);
-    ctx.filter = 'none';
-
+  // Drawing functions
+  function drawWoodFence(x, y, w, h, style) {
     ctx.globalAlpha = opacity;
-
-    // Source crop coordinates (just the fence, no background)
-    var sx = fImg.width * crop.x;
-    var sy = fImg.height * crop.y;
-    var sw = fImg.width * crop.w;
-    var sh = fImg.height * crop.h;
-
-    // Calculate tile dimensions — maintain the aspect ratio of the cropped fence section
-    var cropAspect = sw / sh;
-    var tileH = h;  // fence tile matches full height
-    var tileW = tileH * cropAspect;
-
-    // If a single tile is wider than the rect, just draw once
-    if (tileW >= w) {
-      ctx.drawImage(fImg, sx, sy, sw, sh, x, y, w, h);
-    } else {
-      // Tile the fence texture across the width
-      var currentX = x;
-      while (currentX < x + w) {
-        var drawW = Math.min(tileW, x + w - currentX);
-        var srcW = (drawW / tileW) * sw;
-        ctx.drawImage(fImg, sx, sy, srcW, sh, currentX, y, drawW, tileH);
-
-        // Subtle seam blend between tiles
-        if (currentX > x) {
-          var seamW = Math.min(tileW * 0.08, 15);
-          var seamGrad = ctx.createLinearGradient(currentX - seamW, y, currentX + seamW, y);
-          seamGrad.addColorStop(0, 'rgba(0,0,0,0)');
-          seamGrad.addColorStop(0.5, 'rgba(0,0,0,0.12)');
-          seamGrad.addColorStop(1, 'rgba(0,0,0,0)');
-          ctx.fillStyle = seamGrad;
-          ctx.fillRect(currentX - seamW, y, seamW * 2, h);
-        }
-        currentX += tileW;
+    var s = STYLES[style];
+    var pw = Math.max(8, w / 18), gap = style === 'cedar8' ? -pw * 0.3 : 2;
+    var postW = pw * 1.4, num = Math.ceil(w / (pw + gap));
+    ctx.fillStyle = 'rgba(0,0,0,0.15)'; ctx.fillRect(x+4,y+4,w,h);
+    [x, x+w-postW].forEach(function(px) {
+      var g = ctx.createLinearGradient(px,y,px+postW,y);
+      g.addColorStop(0, s.dark); g.addColorStop(0.5, s.color); g.addColorStop(1, s.dark);
+      ctx.fillStyle = g; ctx.fillRect(px, y-h*0.03, postW, h*1.06);
+      ctx.fillStyle = s.light; ctx.fillRect(px-2, y-h*0.05, postW+4, h*0.03);
+    });
+    [y+h*0.08, y+h*0.85].forEach(function(ry) {
+      var g = ctx.createLinearGradient(x,ry,x,ry+h*0.04);
+      g.addColorStop(0, s.light); g.addColorStop(1, s.dark);
+      ctx.fillStyle = g; ctx.fillRect(x,ry,w,h*0.04);
+    });
+    if (style === 'cedar8') {
+      ctx.fillStyle = s.dark; ctx.fillRect(x-3,y-2,w+6,h*0.035);
+      ctx.fillStyle = s.light; ctx.fillRect(x-5,y-h*0.015-2,w+10,h*0.02);
+    }
+    for (var i = 0; i < num; i++) {
+      var px = x + postW + i * (pw + gap);
+      if (px + pw > x + w - postW) break;
+      var colors = [s.light, s.color, s.dark];
+      var g = ctx.createLinearGradient(px,y,px+pw,y);
+      var c = colors[i % 3];
+      g.addColorStop(0, c); g.addColorStop(0.5, s.color); g.addColorStop(1, s.dark);
+      ctx.fillStyle = g;
+      var top = style === 'cedar8' ? y+h*0.03 : y;
+      ctx.fillRect(px, top, pw, h-(top-y));
+      ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 0.5;
+      for (var g2 = 0; g2 < 4; g2++) {
+        var gy = top + (h/5)*g2 + Math.random()*8;
+        ctx.beginPath(); ctx.moveTo(px+1,gy); ctx.lineTo(px+pw-1,gy+(Math.random()-0.5)*3); ctx.stroke();
       }
     }
-
-    // Edge blending — soft vignette on all edges
-    var edgeW = Math.min(w * 0.06, 20);
-
-    // Left edge
-    var gradL = ctx.createLinearGradient(x, y, x + edgeW, y);
-    gradL.addColorStop(0, 'rgba(0,0,0,0.35)');
-    gradL.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = gradL;
-    ctx.fillRect(x, y, edgeW, h);
-
-    // Right edge
-    var gradR = ctx.createLinearGradient(x + w - edgeW, y, x + w, y);
-    gradR.addColorStop(0, 'rgba(0,0,0,0)');
-    gradR.addColorStop(1, 'rgba(0,0,0,0.35)');
-    ctx.fillStyle = gradR;
-    ctx.fillRect(x + w - edgeW, y, edgeW, h);
-
-    // Bottom ground blend
-    var gradB = ctx.createLinearGradient(x, y + h - h * 0.1, x, y + h);
-    gradB.addColorStop(0, 'rgba(0,0,0,0)');
-    gradB.addColorStop(1, 'rgba(0,0,0,0.25)');
-    ctx.fillStyle = gradB;
-    ctx.fillRect(x, y + h - h * 0.1, w, h * 0.1);
-
-    // Top edge — simulates fence cap shadow
-    var gradT = ctx.createLinearGradient(x, y, x, y + h * 0.04);
-    gradT.addColorStop(0, 'rgba(0,0,0,0.12)');
-    gradT.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = gradT;
-    ctx.fillRect(x, y, w, h * 0.04);
-
+    ctx.fillStyle = 'rgba(80,60,30,0.5)'; ctx.fillRect(x,y+h-h*0.06,w,h*0.06);
     ctx.globalAlpha = 1;
-    ctx.restore();
+  }
+
+  function drawIronFence(x, y, w, h, style) {
+    ctx.globalAlpha = opacity;
+    var barW = 4, gap = Math.max(14, w/22), postW = 12, hasWood = style === 'ironWood';
+    ctx.fillStyle = 'rgba(0,0,0,0.1)'; ctx.fillRect(x+3,y+3,w,h);
+    [x, x+w/3, x+2*w/3, x+w-postW].forEach(function(px) {
+      var g = ctx.createLinearGradient(px,y,px+postW,y);
+      g.addColorStop(0,'#3a3a3a'); g.addColorStop(0.5,'#555'); g.addColorStop(1,'#2a2a2a');
+      ctx.fillStyle = g; ctx.fillRect(px,y-5,postW,h+10);
+      ctx.fillStyle = '#555'; ctx.beginPath(); ctx.arc(px+postW/2,y-8,7,0,Math.PI*2); ctx.fill();
+    });
+    [y+h*0.06, y+h*0.92].forEach(function(ry) {
+      var g = ctx.createLinearGradient(x,ry,x,ry+6);
+      g.addColorStop(0,'#555'); g.addColorStop(1,'#333');
+      ctx.fillStyle = g; ctx.fillRect(x,ry,w,6);
+    });
+    ctx.fillStyle = '#3a3a3a'; ctx.fillRect(x,y+h*0.48,w,4);
+    var num = Math.ceil(w / gap);
+    for (var i = 1; i < num; i++) {
+      var bx = x + i * gap;
+      if (bx > x+w-postW) break;
+      if (hasWood && i % 2 === 0) {
+        var iw = gap * 0.8, ix = bx - iw/2;
+        var g = ctx.createLinearGradient(ix,y,ix+iw,y);
+        g.addColorStop(0,'#C4956A'); g.addColorStop(0.5,'#A0713C'); g.addColorStop(1,'#8B5E3C');
+        ctx.fillStyle = g; ctx.fillRect(ix,y+h*0.08,iw,h*0.84);
+      }
+      var g2 = ctx.createLinearGradient(bx,y,bx+barW,y);
+      g2.addColorStop(0,'#4a4a4a'); g2.addColorStop(0.5,'#5a5a5a'); g2.addColorStop(1,'#3a3a3a');
+      ctx.fillStyle = g2; ctx.fillRect(bx,y+h*0.06,barW,h*0.87);
+      ctx.fillStyle = '#4a4a4a'; ctx.beginPath();
+      ctx.moveTo(bx+barW/2,y); ctx.lineTo(bx-2+barW/2,y+h*0.06); ctx.lineTo(bx+6+barW/2,y+h*0.06);
+      ctx.closePath(); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawChainFence(x, y, w, h) {
+    ctx.globalAlpha = opacity;
+    var postW = 10;
+    ctx.fillStyle = 'rgba(0,0,0,0.08)'; ctx.fillRect(x+2,y+2,w,h);
+    ctx.fillStyle = 'rgba(180,180,180,'+(opacity*0.25)+')'; ctx.fillRect(x,y,w,h);
+    var dw = 18, dh = 22;
+    ctx.strokeStyle = 'rgba(160,160,160,'+(opacity*0.7)+')'; ctx.lineWidth = 1.5;
+    for (var r = 0; r < Math.ceil(h/dh)+1; r++) {
+      for (var c = 0; c < Math.ceil(w/dw)+1; c++) {
+        var cx = x+c*dw+(r%2?dw/2:0), cy = y+r*dh;
+        if (cx > x+w || cy > y+h) continue;
+        ctx.beginPath(); ctx.moveTo(cx,cy-dh/2); ctx.lineTo(cx+dw/2,cy); ctx.lineTo(cx,cy+dh/2); ctx.lineTo(cx-dw/2,cy); ctx.closePath(); ctx.stroke();
+      }
+    }
+    [x, x+w/2, x+w-postW].forEach(function(px) {
+      var g = ctx.createLinearGradient(px,y,px+postW,y);
+      g.addColorStop(0,'#999'); g.addColorStop(0.5,'#bbb'); g.addColorStop(1,'#888');
+      ctx.fillStyle = g; ctx.fillRect(px,y-10,postW,h+15);
+      ctx.fillStyle = '#aaa'; ctx.beginPath(); ctx.arc(px+postW/2,y-12,6,0,Math.PI*2); ctx.fill();
+    });
+    var g = ctx.createLinearGradient(x,y,x,y+8);
+    g.addColorStop(0,'#bbb'); g.addColorStop(1,'#999');
+    ctx.fillStyle = g; ctx.fillRect(x,y-2,w,8);
+    ctx.globalAlpha = 1;
   }
 
   function drawViz() {
     if (!vizImg || !ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(vizImg, 0, 0, canvas.width, canvas.height);
-
-    // Draw fence overlay
-    drawFenceOverlay(rect.x, rect.y, rect.w, rect.h);
-
-    // Style label on the fence
-    ctx.save();
-    ctx.globalAlpha = 0.85;
-    var labelW = Math.min(rect.w * 0.7, 220);
-    var labelH = 24;
-    var labelX = rect.x + (rect.w - labelW) / 2;
-    var labelY = rect.y + rect.h + 8;
-    ctx.fillStyle = 'rgba(26,23,20,0.8)';
-    ctx.beginPath();
-    ctx.roundRect(labelX, labelY, labelW, labelH, 4);
-    ctx.fill();
-    ctx.fillStyle = '#C4956A';
-    ctx.font = '500 11px Outfit, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(STYLES[selected].name, labelX + labelW / 2, labelY + labelH / 2);
-    ctx.globalAlpha = 1;
-    ctx.restore();
-
+    var s = STYLES[selected];
+    if (s.type === 'wood') drawWoodFence(rect.x, rect.y, rect.w, rect.h, selected);
+    else if (s.type === 'iron') drawIronFence(rect.x, rect.y, rect.w, rect.h, selected);
+    else drawChainFence(rect.x, rect.y, rect.w, rect.h);
     // Handles
     ctx.fillStyle = 'rgba(212,136,58,0.9)'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
     [[rect.x,rect.y],[rect.x+rect.w,rect.y],[rect.x,rect.y+rect.h],[rect.x+rect.w,rect.y+rect.h]].forEach(function(h) {
